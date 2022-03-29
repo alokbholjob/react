@@ -10,6 +10,7 @@ const Home = () => {
   const [blogs, setBlogs] = useState(null);
   const [name, setName] = useState("Mario");
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const handleDelete = (id) =>{
     const newBlogs = blogs.filter((blog)=> blog.id !== id ); //newBlogs will store the filtered data
@@ -18,19 +19,30 @@ const Home = () => {
 
   useEffect(()=>{
     setTimeout(()=>{
-      fetch('http://localhost:8000/blogs')
+      fetch('http://localhost:8000/blogsaa')
       .then(res =>{
+        if(!res.ok){ //checking the status-200 is ok or not if not handling the error
+          throw Error('could not fetch the data for that resource'); //throwing the error
+        }
         return res.json()
       })
       .then(data =>{
         setBlogs(data);
         setIsLoading(false);
+        setError(null); //here the connection is OK so...
+      })
+      // to handle the error
+      .catch(err =>{
+        setIsLoading(false); //becoz while rendering the error message the Loading object is showing, so we don't want that
+        setError(err.message); //catch the error
+        console.log(err.message); 
       })
     },(1000));    
   }, []);
 
   return (
     <div className='home'>
+      {error && <div> {error} </div> } 
       {isLoading && <div>Loading...</div>}
     {blogs && <BlogList blogs={blogs} title="All Blogs!" handleDelete={handleDelete} />}
 
