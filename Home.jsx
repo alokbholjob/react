@@ -10,7 +10,7 @@ If we remove the second argument(depedency array) this hook will re-render the f
 const Home = () => {
 
   const { data: blogs, setData, isLoading, error } = useFetch('http://localhost:8000/blogs');
-  const [name, setName] = useState("Mario");
+  //const [name, setName] = useState("Mario");
 
   const handleDelete = (id) =>{
     const newBlogs = blogs.filter((blog)=> blog.id !== id ); //newBlogs will store the filtered data
