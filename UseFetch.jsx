@@ -7,8 +7,10 @@ const useFetch = ( url ) =>{ //custom reusable hook | name should start with 'us
     const [error, setError] = useState(null);
 
     useEffect(()=>{
+        const abortCont = new AbortController();
+
         setTimeout(()=>{
-          fetch(url)
+          fetch(url, { signal: abortCont.signal }) //associated with fetch by adding a 2nd parameter
           .then(res =>{
             if(!res.ok){ //checking the status-200 is ok or not if not handling the error
               throw Error('could not fetch the data for that resource'); //throwing the error
@@ -22,11 +24,18 @@ const useFetch = ( url ) =>{ //custom reusable hook | name should start with 'us
           })
           // to handle the error
           .catch(err =>{
-            setIsLoading(false); //becoz while rendering the error message the Loading object is showing, so we don't want that
-            setError(err.message); //catch the error
-            console.log(err.message); 
+              if(err.name === 'AbortError'){
+                    console.log('fetch aborted');
+              }else {
+
+                  setIsLoading(false); //becoz while rendering the error message the Loading object is showing, so we don't want that
+                  setError(err.message); //catch the error
+                  console.log(err.message); 
+              }
           })
-        },(1000));    
+        },(1000)); 
+        
+        return () => abortCont.abort(); //abort whatever fetch it's associated with fetch() | pause it
       }, [url]); //now url is a depedency array, whenever the url changes this fuction is going to be re-render 
 
     /* This fuction will return some values an array like useStates or it could be a string or a boolean
