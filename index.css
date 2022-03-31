@@ -74,6 +74,14 @@ code {
 .blog-details div{
   margin: 20px 0;
 }
+.blog-details button{
+  background: #f1356d;
+  color: #f2f2f2;
+  border: 0;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
 /* create new blog form */
 

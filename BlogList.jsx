@@ -2,9 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 const BlogList = ({ blogs,title, handleDelete }) =>{
-    //another way by destructuring--> (props)/ ({ title, author })
-    //const blogs = props.blogs;
-    //const title = props.title;
 
     return(
         <div className="blog-list">
