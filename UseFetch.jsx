@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 
-const useFetch = ( url ) =>{ //custom reusable hook | name should start with 'use'
+const useFetch = (url) =>{ //custom reusable hook | name should start with 'use'
 
     const [data, setData] = useState(null);   //we replace blogs with "data" to make it reusable
     const [isLoading, setIsLoading] = useState(true);
