@@ -1,2 +1,2 @@
 # react
-This project is to make your React fundamental strong.
+This project includes the basic concepts of ReactJs like hooks, routing, conditional rendering.
