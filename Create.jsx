@@ -2,15 +2,21 @@ import React, { useState } from 'react'
 
 const Create = () => {
 
-    const [title, setTitle] = useState('hello');
-    const [body, setBody] = useState();
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
     const [authorName, setAuthorName] = useState('Mario');
+
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        const blog ={title, body, authorName};
+        console.log(blog);
+    };
 
   return (
     <div className='create'>
         
      <h2>Add a new blog</h2>
-     <form>
+     <form onSubmit={handleSubmit}>
          <label>Blog Title: </label>
          <input
             type="text"
